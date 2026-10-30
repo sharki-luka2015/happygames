@@ -1,0 +1,127 @@
+!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HappyGames</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #171329;
+  color: white;
+  text-align: center;
+}
+header {
+  background: #792cff;
+  padding: 35px 15px;
+}
+h1 { font-size: 42px; margin: 0; }
+header p { font-size: 18px; }
+input {
+  padding: 13px;
+  width: 75%;
+  max-width: 400px;
+  border: 0;
+  border-radius: 12px;
+  margin: 20px;
+}
+.games {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px;
+  padding: 20px;
+}
+.game {
+  background: #292344;
+  border-radius: 18px;
+  padding: 25px;
+  width: 220px;
+}
+.game button {
+  background: #9a5cff;
+  color: white;
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 20px;
+  cursor: pointer;
+}
+.game button:hover { background: #b58aff; }
+#result { font-size: 22px; padding: 20px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎮 HappyGames</h1>
+  <p>Play. Have fun. Be happy!</p>
+</header>
+
+<input id="search" placeholder="🔍 Išči igre..." oninput="searchGames()">
+
+<h2>⭐ Popularne igre</h2>
+
+<div class="games" id="games">
+  <div class="game">
+    <h2>🐍 Snake</h2>
+    <p>Ujemi čim več točk!</p>
+    <button onclick="snake()">Igraj</button>
+  </div>
+
+  <div class="game">
+    <h2>🧠 Spomin</h2>
+    <p>Najdi enake pare!</p>
+    <button onclick="memory()">Igraj</button>
+  </div>
+
+  <div class="game">
+    <h2>❌ Križci in krožci</h2>
+    <p>Igraj proti prijatelju!</p>
+    <button onclick="tic()">Igraj</button>
+  </div>
+
+  <div class="game">
+    <h2>⚡ Reakcija</h2>
+    <p>Preizkusi svoje reflekse!</p>
+    <button onclick="reaction()">Igraj</button>
+  </div>
+</div>
+
+<div id="result"></div>
+
+<script>
+function searchGames() {
+  let q = document.getElementById("search").value.toLowerCase();
+  document.querySelectorAll(".game").forEach(g => {
+    g.style.display = g.innerText.toLowerCase().includes(q) ? "" : "none";
+  });
+}
+
+function snake() {
+  document.getElementById("result").innerHTML =
+    "<h2>🐍 Snake</h2><p>Za pravo različico igre bova dodala igralno ploščo v naslednjem koraku!</p>";
+}
+
+function memory() {
+  let cards = ["🍎","🍌","🍎","🍌","🐱","🐱"];
+  cards.sort(() => Math.random() - 0.5);
+  document.getElementById("result").innerHTML =
+    "<h2>🧠 Spomin</h2>" +
+    cards.map((c,i) => `<button onclick="this.innerText='${c}'">?</button>`).join(" ");
+}
+
+function tic() {
+  document.getElementById("result").innerHTML =
+    "<h2>❌ Križci in krožci</h2><p>Označuj polja po vrsti:</p>" +
+    Array.from({length:9},(_,i)=>`<button onclick="this.innerText='${i%2===0?'X':'O'}'">　</button>`).join(" ");
+}
+
+function reaction() {
+  document.getElementById("result").innerHTML =
+    "<h2>⚡ Reakcija</h2><button onclick=\"this.innerText='Bravo! 🎉'\">Klikni me!</button>";
+}
+</script>
+
+</body>
+</html>

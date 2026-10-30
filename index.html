@@ -2,6 +2,165 @@
 <meta name="google-site-verification" content="wkz2yZ0FED_ExP8327076USCfMzVC5PUjCYGQcpvjNs" />
 
 <!DOCTYPE html>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 25px;
+    text-align: center;
+    color: white;
+    background:
+        radial-gradient(ellipse at bottom, #9e260b 0%, transparent 55%),
+        linear-gradient(135deg, #100817, #29101b, #160914);
+    background-size: 200% 200%;
+    animation: ozadje 10s ease infinite;
+    overflow-x: hidden;
+    position: relative;
+    isolation: isolate;
+}
+
+@keyframes ozadje {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Svetleča ognjena žerjavica */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.8;
+    background-image:
+        radial-gradient(circle, #ffdb70 2px, transparent 3px),
+        radial-gradient(circle, #ff6b21 2px, transparent 4px),
+        radial-gradient(circle, #ffad32 1px, transparent 3px);
+    background-size: 90px 120px, 130px 160px, 70px 90px;
+    animation: zarjavica 8s linear infinite;
+}
+
+@keyframes zarjavica {
+    from { background-position: 0 0, 30px 50px, 60px 20px; }
+    to { background-position: 0 -500px, 30px -600px, 60px -400px; }
+}
+
+h1 {
+    font-size: clamp(38px, 7vw, 65px);
+    color: #ffb347;
+    text-shadow:
+        0 0 10px #ff6a00,
+        0 0 25px #ff3300,
+        0 0 45px #ff2200;
+    margin-bottom: 10px;
+}
+
+body > p {
+    font-size: 19px;
+    color: #ffd6ad;
+}
+
+.games {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    max-width: 1300px;
+    margin: 30px auto;
+}
+
+.game {
+    background: linear-gradient(145deg, #321624, #190e1c);
+    padding: 22px;
+    border-radius: 18px;
+    border: 1px solid #ff7138;
+    box-shadow:
+        0 0 10px #ff4d1a55,
+        0 0 22px #ff260033,
+        inset 0 0 15px #ff6b2215;
+    transition: 0.3s;
+}
+
+.game:hover {
+    transform: translateY(-8px) scale(1.03);
+    border-color: #ffd166;
+    box-shadow:
+        0 0 15px #ff8c00,
+        0 0 35px #ff3c00aa;
+}
+
+.game h3 {
+    color: #ffbd69;
+    font-size: 21px;
+    text-shadow: 0 0 8px #ff5900;
+}
+
+.game p {
+    color: #f8d9c2;
+}
+
+button {
+    background: linear-gradient(135deg, #ff9d00, #ff3d00, #d41414);
+    color: white;
+    border: 1px solid #ffc15c;
+    padding: 12px 22px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 0 12px #ff4d00aa;
+    transition: 0.25s;
+}
+
+button:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 25px #ff8c00;
+}
+
+#result {
+    background: linear-gradient(145deg, #321624, #190e1c);
+    color: white;
+    padding: 25px;
+    margin: 30px auto;
+    border: 2px solid #ff7138;
+    border-radius: 18px;
+    max-width: 650px;
+    min-height: 70px;
+    box-shadow: 0 0 25px #ff450066;
+}
+
+#result h2 {
+    color: #ffbd69;
+    text-shadow: 0 0 10px #ff5100;
+}
+
+input {
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid #ff8c32;
+    background: #1b101c;
+    color: white;
+    font-size: 16px;
+    margin: 8px;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 12px #ff7000;
+}
+
+canvas {
+    border: 2px solid #ff8c32;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #ff4d00;
+}
+</style>
+
 <html lang="sl">
 <head>
 <meta charset="UTF-8">
@@ -340,161 +499,6 @@ function zacetekKace() {
 }
 </script>
 
-<style>
-* {
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 25px;
-    text-align: center;
-    color: white;
-    background:
-        radial-gradient(ellipse at bottom, #9e260b 0%, transparent 55%),
-        linear-gradient(135deg, #100817, #29101b, #160914);
-    background-size: 200% 200%;
-    animation: ozadje 10s ease infinite;
-    overflow-x: hidden;
-    position: relative;
-    isolation: isolate;
-}
-
-@keyframes ozadje {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* Svetleča ognjena žerjavica */
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    opacity: 0.8;
-    background-image:
-        radial-gradient(circle, #ffdb70 2px, transparent 3px),
-        radial-gradient(circle, #ff6b21 2px, transparent 4px),
-        radial-gradient(circle, #ffad32 1px, transparent 3px);
-    background-size: 90px 120px, 130px 160px, 70px 90px;
-    animation: zarjavica 8s linear infinite;
-}
-
-@keyframes zarjavica {
-    from { background-position: 0 0, 30px 50px, 60px 20px; }
-    to { background-position: 0 -500px, 30px -600px, 60px -400px; }
-}
-
-h1 {
-    font-size: clamp(38px, 7vw, 65px);
-    color: #ffb347;
-    text-shadow:
-        0 0 10px #ff6a00,
-        0 0 25px #ff3300,
-        0 0 45px #ff2200;
-    margin-bottom: 10px;
-}
-
-body > p {
-    font-size: 19px;
-    color: #ffd6ad;
-}
-
-.games {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    max-width: 1300px;
-    margin: 30px auto;
-}
-
-.game {
-    background: linear-gradient(145deg, #321624, #190e1c);
-    padding: 22px;
-    border-radius: 18px;
-    border: 1px solid #ff7138;
-    box-shadow:
-        0 0 10px #ff4d1a55,
-        0 0 22px #ff260033,
-        inset 0 0 15px #ff6b2215;
-    transition: 0.3s;
-}
-
-.game:hover {
-    transform: translateY(-8px) scale(1.03);
-    border-color: #ffd166;
-    box-shadow:
-        0 0 15px #ff8c00,
-        0 0 35px #ff3c00aa;
-}
-
-.game h3 {
-    color: #ffbd69;
-    font-size: 21px;
-    text-shadow: 0 0 8px #ff5900;
-}
-
-.game p {
-    color: #f8d9c2;
-}
-
-button {
-    background: linear-gradient(135deg, #ff9d00, #ff3d00, #d41414);
-    color: white;
-    border: 1px solid #ffc15c;
-    padding: 12px 22px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    box-shadow: 0 0 12px #ff4d00aa;
-    transition: 0.25s;
-}
-
-button:hover {
-    transform: scale(1.08);
-    box-shadow: 0 0 25px #ff8c00;
-}
-
-#result {
-    background: linear-gradient(145deg, #321624, #190e1c);
-    color: white;
-    padding: 25px;
-    margin: 30px auto;
-    border: 2px solid #ff7138;
-    border-radius: 18px;
-    max-width: 650px;
-    min-height: 70px;
-    box-shadow: 0 0 25px #ff450066;
-}
-
-#result h2 {
-    color: #ffbd69;
-    text-shadow: 0 0 10px #ff5100;
-}
-
-input {
-    padding: 12px;
-    border-radius: 8px;
-    border: 2px solid #ff8c32;
-    background: #1b101c;
-    color: white;
-    font-size: 16px;
-    margin: 8px;
-}
-
-input:focus {
-    outline: none;
-    box-shadow: 0 0 12px #ff7000;
-}
-
-canvas {
-    border: 2px solid #ff8c32;
-    border-radius: 10px;
-    box-shadow: 0 0 15px #ff4d00;
 }
 </style>
 

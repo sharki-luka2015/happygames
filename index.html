@@ -1,3 +1,345 @@
 <head>
 <meta name="google-site-verification" content="wkz2yZ0FED_ExP8327076USCfMzVC5PUjCYGQcpvjNs" />
-happygames-100.html
+
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HappyGames - 70 iger</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f4ff;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+h1 {
+    color: #4433aa;
+}
+.games {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+}
+.game {
+    background: white;
+    padding: 18px;
+    border-radius: 14px;
+    box-shadow: 0 3px 10px #0002;
+}
+button {
+    background: #5544cc;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+button:hover {
+    background: #332299;
+}
+#result {
+    background: white;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 12px;
+    max-width: 600px;
+    min-height: 40px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎮 HappyGames</h1>
+<p>Izberi eno izmed 70 zabavnih miniiger!</p>
+
+<div class="games" id="games"></div>
+
+<div id="result">Tukaj se bodo prikazale igre!</div>
+
+<script>
+const igre = [
+["Kača","Zberi čim več točk."],
+["Spomin","Zapomni si prikazano zaporedje."],
+["Ugani število","Ugotovi skrito število."],
+["Hitri račun","Reši matematični izziv."],
+["Reakcija","Preveri svojo hitrost."],
+["Kamen papir škarje","Premagaj računalnik."],
+["Glava ali cifra","Ugani rezultat meta."],
+["Barvni izziv","Zapomni si pravo barvo."],
+["Ugani besedo","Odkrij skrito besedo."],
+["Množenje","Reši račun za množenje."],
+["Deljenje","Reši račun za deljenje."],
+["Seštevanje","Reši račun za seštevanje."],
+["Odštevanje","Reši račun za odštevanje."],
+["Prav ali narobe","Odgovori na vprašanje."],
+["Mini kviz","Preizkusi svoje znanje."],
+["Lov na zaklad","Izberi pravo skrinjo."],
+["Srečna vrata","Poišči prava vrata."],
+["Ugani žival","Ugotovi, katera žival je skrita."],
+["Ugani državo","Prepoznaj državo."],
+["Ugani šport","Prepoznaj šport."],
+["Številski niz","Nadaljuj zaporedje."],
+["Najdi večje število","Izberi večje število."],
+["Najdi manjše število","Izberi manjše število."],
+["Hitri prsti","Klikni čim hitreje."],
+["Lov na točke","Zberi čim več točk."],
+["Srečna številka","Poskusi svojo srečo."],
+["Ugani predmet","Odkrij skriti predmet."],
+["Besedni izziv","Ugotovi pravo besedo."],
+["Črkovanje","Pravilno napiši besedo."],
+["Matematični izziv","Reši naključen račun."],
+["Barvni spomin","Zapomni si barve."],
+["Skriti zaklad","Poišči zaklad."],
+["Izberi pravilno","Izberi pravilen odgovor."],
+["Hitri kviz","Odgovori čim hitreje."],
+["Ugani številko 2","Poskusi uganiti novo številko."],
+["Ugani številko 3","Poišči skrito številko."],
+["Srečni met","Poskusi zadeti pravo številko."],
+["Miselna igra","Reši miselni izziv."],
+["Logični izziv","Uporabi svojo logiko."],
+["Ugani sadje","Prepoznaj skrito sadje."],
+["Ugani barvo","Ugotovi pravo barvo."],
+["Ugani poklic","Prepoznaj poklic."],
+["Ugani vozilo","Prepoznaj vozilo."],
+["Ugani hrano","Prepoznaj hrano."],
+["Ugani predmet 2","Odkrij še en skriti predmet."],
+["Številčni spomin","Zapomni si številke."],
+["Besedni spomin","Zapomni si besede."],
+["Hitro seštevanje","Računaj čim hitreje."],
+["Hitro množenje","Pomnoži števili."],
+["Pravilna pot","Izberi pravilno možnost."],
+["Skrivnostna skrinja","Odpri pravo skrinjo."],
+["Igra sreče","Preizkusi srečo."],
+["Ugani dan","Ugotovi pravi dan."],
+["Ugani mesec","Ugotovi pravi mesec."],
+["Več ali manj","Izberi več ali manj."],
+["Lov na številke","Poišči iskano številko."],
+["Mini matematika","Reši matematično nalogo."],
+["Hitri odgovor","Odgovori na vprašanje."],
+["Ugani žival 2","Odkrij drugo žival."],
+["Ugani šport 2","Odkrij skriti šport."],
+["Besedna uganka","Reši besedno uganko."],
+["Številčna uganka","Reši številčno uganko."],
+["Pravi vrstni red","Uredi številke."],
+["Najdi par","Poišči ustrezen par."],
+["Zapomni si","Preizkusi svoj spomin."],
+["Srečna vrata 2","Izberi prava vrata."],
+["Zadeni številko","Poskusi zadeti cilj."],
+["Super kviz","Odgovori na super vprašanje."],
+["Zadnji izziv","Premagaj zadnji izziv."]
+];
+
+const seznam = document.getElementById("games");
+
+igre.forEach((igra, i) => {
+    const kartica = document.createElement("div");
+    kartica.className = "game";
+    kartica.innerHTML = `
+        <h3>${i + 1}. ${igra[0]}</h3>
+        <p>${igra[1]}</p>
+        <button onclick="igraj(${i})">Igraj</button>
+    `;
+    seznam.appendChild(kartica);
+});
+
+const izzivi = [
+    {q:"Koliko je 7 + 8?", a:"15"},
+    {q:"Koliko je 9 × 6?", a:"54"},
+    {q:"Koliko je 30 - 12?", a:"18"},
+    {q:"Koliko je 56 ÷ 7?", a:"8"},
+    {q:"Koliko nog ima pajek?", a:"8"},
+    {q:"Kateri planet je znan kot rdeči planet?", a:"mars"},
+    {q:"Koliko dni ima teden?", a:"7"},
+    {q:"Katero žival imenujemo kralj živali?", a:"lev"},
+    {q:"Koliko je 12 + 13?", a:"25"},
+    {q:"Koliko je 5 × 5?", a:"25"},
+    {q:"Katera barva nastane iz modre in rumene?", a:"zelena"},
+    {q:"Koliko mesecev ima leto?", a:"12"},
+    {q:"Koliko je 100 - 45?", a:"55"},
+    {q:"Koliko je 8 × 8?", a:"64"},
+    {q:"Katera žival laja?", a:"pes"},
+    {q:"Koliko je 45 ÷ 5?", a:"9"},
+    {q:"Koliko je 17 + 16?", a:"33"},
+    {q:"Koliko je 10 × 3?", a:"30"},
+    {q:"Katera žival mijavka?", a:"mačka"},
+    {q:"Koliko je 90 - 25?", a:"65"}
+];
+
+function igraj(id) {
+    const rezultat = document.getElementById("result");
+    const ime = igre[id][0];
+
+    if (id === 0) {
+        rezultat.innerHTML = `
+            <h2>🐍 Kača</h2>
+            <p>Kača je preprosta različica igre. Uporabi puščice na tipkovnici.</p>
+            <canvas id="snake" width="300" height="300"
+                style="background:#222;max-width:100%"></canvas>
+        `;
+        zacetekKace();
+        return;
+    }
+
+    if (id === 1 || id === 30 || id === 45 || id === 46 || id === 65) {
+        const stevilke = Array.from({length:5}, () =>
+            Math.floor(Math.random()*9)+1
+        );
+        rezultat.innerHTML = `
+            <h2>🧠 ${ime}</h2>
+            <p id="spomin">${stevilke.join(" - ")}</p>
+            <button onclick="pokaziVnos()">Skrij številke</button>
+            <div id="vnos"></div>
+        `;
+        window.trenutniSpomin = stevilke.join("");
+        return;
+    }
+
+    if (id === 4 || id === 23 || id === 24) {
+        rezultat.innerHTML = `
+            <h2>⚡ ${ime}</h2>
+            <p>Ko se prikaže beseda ZDAJ, čim hitreje klikni gumb!</p>
+            <p id="reakcija">Pripravi se...</p>
+            <button onclick="merireakcijo()">ZDAJ!</button>
+        `;
+        window.casZacetka = null;
+        setTimeout(() => {
+            window.casZacetka = Date.now();
+            document.getElementById("reakcija").textContent = "ZDAJ!";
+        }, 1500 + Math.random()*2500);
+        return;
+    }
+
+    if (id === 5) {
+        const izbire = ["kamen","papir","škarje"];
+        const rac = izbire[Math.floor(Math.random()*3)];
+        const tvoja = prompt("Izberi: kamen, papir ali škarje");
+        if (!tvoja) return;
+        const t = tvoja.toLowerCase().trim();
+        let odgovor = "Neveljavna izbira!";
+        if (izbire.includes(t)) {
+            if (t === rac) odgovor = "Neodločeno!";
+            else if (
+                (t==="kamen" && rac==="škarje") ||
+                (t==="papir" && rac==="kamen") ||
+                (t==="škarje" && rac==="papir")
+            ) odgovor = "Zmagal si!";
+            else odgovor = "Računalnik je zmagal!";
+        }
+        rezultat.innerHTML = `<h2>✊ ${ime}</h2><p>Računalnik: ${rac}</p><h3>${odgovor}</h3>`;
+        return;
+    }
+
+    if (id === 6 || id === 25 || id === 35 || id === 36 || id === 50 || id === 51 || id === 66 || id === 68) {
+        const stevilo = Math.floor(Math.random()*6)+1;
+        const odgovor = prompt("Ugani številko od 1 do 6:");
+        rezultat.innerHTML = `<h2>🎲 ${ime}</h2><p>Skrita številka je bila ${stevilo}.</p><h3>${Number(odgovor)===stevilo ? "Pravilno! Zadel si!" : "Poskusi še enkrat!"}</h3>`;
+        return;
+    }
+
+    if (id === 2 || id === 34 || id === 49 || id === 54 || id === 55 || id === 67) {
+        const stevilo = Math.floor(Math.random()*20)+1;
+        const odgovor = prompt("Ugani število med 1 in 20:");
+        let sporocilo = Number(odgovor)===stevilo ? "Bravo! Uganil si!" :
+            Number(odgovor)<stevilo ? "Premalo! Skrito število je bilo " + stevilo :
+            "Preveč! Skrito število je bilo " + stevilo;
+        rezultat.innerHTML = `<h2>🔢 ${ime}</h2><p>${sporocilo}</p>`;
+        return;
+    }
+
+    if (id === 7 || id === 40) {
+        const barve = ["rdeča","modra","zelena","rumena"];
+        const prava = barve[Math.floor(Math.random()*4)];
+        const odgovor = prompt("Ugani barvo: rdeča, modra, zelena ali rumena?");
+        rezultat.innerHTML = `<h2>🎨 ${ime}</h2><p>Prava barva je ${prava}.</p><h3>${odgovor && odgovor.toLowerCase().trim()===prava ? "Pravilno!" : "Poskusi znova!"}</h3>`;
+        return;
+    }
+
+    const izziv = izzivi[Math.floor(Math.random()*izzivi.length)];
+    const odgovor = prompt(ime + "\n\n" + izziv.q);
+    rezultat.innerHTML = `
+        <h2>🎮 ${ime}</h2>
+        <p>${izziv.q}</p>
+        <h3>${odgovor && odgovor.toLowerCase().trim()===izziv.a ? "Pravilno! Odlično! 🎉" : "Tokrat ni uspelo. Pravilen odgovor je: " + izziv.a}</h3>
+    `;
+}
+
+function pokaziVnos() {
+    document.getElementById("spomin").textContent = "Zdaj vpiši številke po vrsti!";
+    document.getElementById("vnos").innerHTML =
+        '<input id="spomni" placeholder="Vpiši številke">' +
+        '<button onclick="preveriSpomin()">Preveri</button>';
+}
+
+function preveriSpomin() {
+    const v = document.getElementById("spomni").value;
+    document.getElementById("vnos").innerHTML =
+        v === window.trenutniSpomin ? "Pravilno! 🎉" : "Poskusi še enkrat!";
+}
+
+function merireakcijo() {
+    if (!window.casZacetka) {
+        document.getElementById("reakcija").textContent = "Prehitro! Počakaj na ZDAJ!";
+        return;
+    }
+    const cas = Date.now() - window.casZacetka;
+    document.getElementById("reakcija").textContent = "Tvoj čas: " + cas + " ms!";
+    window.casZacetka = null;
+}
+
+function zacetekKace() {
+    const canvas = document.getElementById("snake");
+    const ctx = canvas.getContext("2d");
+    const velikost = 15;
+    let k = [{x:150,y:150}];
+    let hrana = {x:60,y:60};
+    let dx = velikost, dy = 0;
+    let tocke = 0;
+    let tek = true;
+
+    document.onkeydown = e => {
+        if (e.key==="ArrowUp" && dy===0) {dx=0;dy=-velikost;}
+        if (e.key==="ArrowDown" && dy===0) {dx=0;dy=velikost;}
+        if (e.key==="ArrowLeft" && dx===0) {dx=-velikost;dy=0;}
+        if (e.key==="ArrowRight" && dx===0) {dx=velikost;dy=0;}
+    };
+
+    function korak() {
+        if (!tek) return;
+        const glava = {x:k[0].x+dx,y:k[0].y+dy};
+        if (glava.x<0 || glava.y<0 || glava.x>=300 || glava.y>=300 ||
+            k.some(p=>p.x===glava.x && p.y===glava.y)) {
+            tek=false;
+            document.getElementById("result").innerHTML +=
+                "<p>Konec igre! Točke: "+tocke+"</p>";
+            return;
+        }
+        k.unshift(glava);
+        if (glava.x===hrana.x && glava.y===hrana.y) {
+            tocke++;
+            hrana={x:Math.floor(Math.random()*20)*velikost,
+                   y:Math.floor(Math.random()*20)*velikost};
+        } else k.pop();
+
+        ctx.fillStyle="#222";
+        ctx.fillRect(0,0,300,300);
+        ctx.fillStyle="lime";
+        k.forEach(p=>ctx.fillRect(p.x,p.y,velikost-1,velikost-1));
+        ctx.fillStyle="red";
+        ctx.fillRect(hrana.x,hrana.y,velikost-1,velikost-1);
+        ctx.fillStyle="white";
+        ctx.fillText("Točke: "+tocke,5,12);
+        setTimeout(korak,110);
+    }
+    korak();
+}
+</script>
+
+</body>
+</html>
+
